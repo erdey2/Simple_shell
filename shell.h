@@ -11,5 +11,6 @@ extern char **environ;
 
 int _strcmp(const char *s1, const char *s2);
 int _strlen(const char *s1);
+int builtin_env(void);
 
 #endif

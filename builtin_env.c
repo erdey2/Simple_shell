@@ -3,9 +3,9 @@
 /**
  * builtin_env - prints environment variables
  * 
- * Return: void
+ * Return: -1 on unsuccess
  */
-void builtin_env(void)
+int builtin_env(void)
 {
 	int i = 0;
 
@@ -15,4 +15,5 @@ void builtin_env(void)
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
+	return (-1);
 }

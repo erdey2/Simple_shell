@@ -28,6 +28,10 @@ int main(int argc, char *argv[])
 		{
 			exit(0);
 		}
+		if (_strcmp(cmd, "env") == 0)
+		{
+			return (builtin_env());
+		}
 		args[0] = cmd;
 
 		childpid = fork();
