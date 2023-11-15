@@ -3,12 +3,10 @@
 /**
  * main - display a simple shell
  * @argc - number of arguments
- * @argv - array of pointers to arguments  
- * 
- * Return - 0
+ * @argv - array of pointers to arguments
+ *
+ * Return: - 0
  */
-
-extern char **environ;
 
 int main(void)
 {
