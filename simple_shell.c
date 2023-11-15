@@ -8,16 +8,16 @@
  * Return: - 0
  */
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	char *args[] = {NULL, NULL};
 	char *cmd = NULL;
 	size_t cmd_len = 0;
 	ssize_t bytes;
-
 	pid_t childpid;
 	int status;
-
+	
+	(void)argc;
 	while (1)
 	{
 		write(1, "cisfun$ ", 9);
@@ -28,7 +28,7 @@ int main(void)
 		childpid = fork();
 		if (childpid < 0)
 		{
-			perror(args[0]);
+			perror(argv[0]);
 			exit(1);
 		}
 		else if (childpid > 0)
@@ -38,7 +38,7 @@ int main(void)
 		else
 		{
 			execve(*args, args, environ);
-			dprintf(STDERR_FILENO, "%s: No such file or directory\n", args[0]);
+			dprintf(STDERR_FILENO, "%s: No such file or directory\n", argv[0]);
 			exit(1);
 		}
 	}
