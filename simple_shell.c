@@ -10,27 +10,27 @@
 
 extern char **environ;
 
-int main(int argc, char *argv[])
+int main(void)
 {
 	char *args[] = {NULL, NULL};
 	char *cmd = NULL;
-	ssize_t n_bytes = 0;
-	size_t bytes = 0;
+	size_t cmd_len = 0;
+	ssize_t bytes;
 
-	size_t childpid;
+	pid_t childpid;
 	int status;
 
 	while (1)
 	{
 		write(1, "cisfun$ ", 9);
-		bytes = getline(&cmd, &n_bytes, stdin);
-		cmd[n_bytes - 1] = '\0';
+		bytes = getline(&cmd, &cmd_len, stdin);
+		cmd[bytes - 1] = '\0';
 		args[0] = cmd;
 
 		childpid = fork();
-		if (childpid == -1)
+		if (childpid < 0)
 		{
-			perror(argv[0]);
+			perror(args[0]);
 			exit(1);
 		}
 		else if (childpid > 0)
@@ -39,11 +39,11 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			execve(argv[0], args, environ);
-			exit(100);
+			execve(*args, args, environ);
+			dprintf(STDERR_FILENO, "%s: No such file or directory\n", args[0]);
+			exit(1);
 		}
-
-	
 	}
+	return (0);
 }
 
