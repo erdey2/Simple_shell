@@ -25,7 +25,9 @@ int main(int argc, char *argv[])
 		
 		cmd[bytes - 1] = '\0';
 		if (_strcmp(cmd, "exit") == 0)
+		{
 			exit(0);
+		}
 		args[0] = cmd;
 
 		childpid = fork();
