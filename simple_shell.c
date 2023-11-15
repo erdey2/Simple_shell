@@ -22,7 +22,10 @@ int main(int argc, char *argv[])
 	{
 		write(1, "cisfun$ ", 9);
 		bytes = getline(&cmd, &cmd_len, stdin);
+		
 		cmd[bytes - 1] = '\0';
+		if (_strcmp(cmd, "exit") == 0)
+			exit(1);
 		args[0] = cmd;
 
 		childpid = fork();
