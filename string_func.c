@@ -29,7 +29,7 @@ int _strlen(const char *s1)
 {
 	int i = 0;
 
-	while (*s1)
+	while (s1[i] != '\0')
 	{
 		i++;
 	}
@@ -37,22 +37,37 @@ int _strlen(const char *s1)
 }
 
 /**
-* _strncmp - compares two strings up to n bytes
-* @s1: compared to s2
-* @s2: compared to s1
-* @n: number of bytes
-*
-* Return: difference between s1 and s2
-*/
-
-int _strncmp(char *s1, char *s2, int n)
+ * _putchar - print a character to the stdout
+ * @c: The character to be printed
+ *
+ * Return: On success 1 otherwise -1.
+ */
+int _putchar(char c)
 {
-	int i;
+	return (write(1, &c, 1));
+}
 
-	for (i = 0; s1[i] && s2[i] && i < n; i++)
+/**
+ * _str_dup - copy a string
+ * @s1: the string to be copied
+ * 
+ * Return: the copied string
+ */
+char *_strdup(char *s1)
+{
+	unsigned int i, size;
+	char *duplicate;
+
+	if (s1 == NULL)
+		return (NULL);
+	for (size = 0; s1[size] != '\0'; size++)
+		;
+	duplicate = malloc(sizeof(char) * (size + 1));
+	if (duplicate == NULL)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		return (NULL);
 	}
-	return (0);
+	for (i = 0; i <= size; i++)
+		duplicate[i] = s1[i];
+	return (duplicate);
 }

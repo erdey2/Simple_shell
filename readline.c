@@ -2,18 +2,35 @@
 
 /**
  * readline - custum readline
- * @s: the string
- * @size: buffer size
+ * @fd: the file pointer
+ * @buf: the container for the read
+ * @nbytes: the size of the number of read 
  *
  * Return: the total bytes read
  */
 
-int readline(char s[], int size)
+int readline(int fd, char *buf, int nbytes)
 {
-	char *tmp = s;
+	int numread = 0, returnval;
 
-	while (--size > 0 && read(0, tmp, 1) != 0 && *tmp++ != '\n');
-	*tmp = '\0';
-	return (tmp - s);
+	while (numread < nbytes - 1)
+	{
+		returnval = read(fd, buf + numread, 1);
+		if ((returnval == -1) && (errno == EINTR))
+			continue;
+		if ((returnval == 0) && (numread == 0))
+			return (0);
+		if (returnval == 0)
+			break;
+		if (returnval == -1)
+			return (-1);
+		numread++;
+		if (buf[numread-1] == '\n')
+		{
+			buf[numread] = '\0';
+			return numread;
+		}
+	}
+	errno = EINVAL;
+ 	return (-1);
 }
-

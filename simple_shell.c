@@ -2,55 +2,54 @@
 
 /**
  * main - display a simple shell
- * @argc - number of arguments
- * @argv - array of pointers to arguments
  *
  * Return: - 0
  */
 
-int main(int argc, char *argv[])
+int main(void)
 {
-	char *args[] = {NULL, NULL};
-	char *cmd = NULL;
+	char *cmd = NULL, *args[20];
 	size_t cmd_len = 0;
-	ssize_t bytes;
-	pid_t childpid;
-	int status;
-	
-	(void)argc;
-	while (1)
-	{
-		write(1, "cisfun$ ", 9);
-		bytes = getline(&cmd, &cmd_len, stdin);
-		
-		cmd[bytes - 1] = '\0';
-		if (_strcmp(cmd, "exit") == 0)
-		{
-			exit(0);
-		}
-		if (_strcmp(cmd, "env") == 0)
-		{
-			return (builtin_env());
-		}
-		args[0] = cmd;
+	ssize_t bytes = 0;
+	int counter = 1, test_stat = 0, cmdstats = 0, cmdstat = 0, internal_stat = 0;
 
-		childpid = fork();
-		if (childpid < 0)
+	if (isatty(STDIN_FILENO) == 1)
+		write(1, "$ ", 2);
+
+	bytes = getline(&cmd, &cmd_len, stdin); 
+	while (bytes != -1)
+	{
+		if (*cmd != '\n')
 		{
-			perror(argv[0]);
-			exit(1);
+			make_args(cmd, args);
+			if (args[0] != NULL)
+			{
+				cmdstats = check_file(args[0]);
+				if (cmdstats != 0)
+				{
+					test_stat = test_path(args);
+					if (test_stat == 0)
+						cmdstat = execution(args), free(cmd), free(*args);
+					else
+					{
+					internal_stat = test_builtin(args, cmdstat);
+					if (internal_stat != 0)
+						cmdstat = cmd_not_found(args, counter), free(cmd);
+					}
+				}
+				else
+					cmdstat = execution(args), free(cmd);
+			}
+			else
+				free(cmd);
 		}
-		else if (childpid > 0)
-		{
-			wait(&status);
-		}
-		else
-		{
-			execve(*args, args, environ);
-			dprintf(STDERR_FILENO, "%s: No such file or directory\n", argv[0]);
-			exit(1);
-		}
+		else if (*cmd == '\n')
+			free(cmd);
+		cmd = NULL, counter++;
+		write(1, "$ ", 2);
+		bytes = getline(&cmd, &cmd_len, stdin);
 	}
+	free_buf(cmd);
+	return (cmdstat);
 	return (0);
 }
-
