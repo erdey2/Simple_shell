@@ -3,7 +3,7 @@
 /**
  * _getenv - get the value of an environment variable
  * @env: the environment variable
- * 
+ *
  * Return: the address of the environment variable orr NULL if fails
  */
 char *_getenv(char *env)
