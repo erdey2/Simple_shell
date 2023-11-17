@@ -1,10 +1,11 @@
 #include "shell.h"
 
 /**
- * print_not_found - Prints error message when a command is not found
- * @arguments: array of args typed by the user
- * @counter: Times that the shell has been executed
- * Return: Exit status
+ * cmd_not_found - prints error message when a command is not found
+ * @args: user input array of pointers to strings
+ * @counter: holds how many times the shell executed
+ *
+ * Return: command not found
  */
 int cmd_not_found(char *args[], int counter)
 {
