@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * free_double - free allocated memory 
+ * free_double - free allocated memory
  * @doublea: pointer to double array
  * @heigth: Heigth of the array
  */
