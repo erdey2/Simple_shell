@@ -9,7 +9,7 @@
 int check_file(char *path)
 {
 	int fd;
-	
+
 	fd = (open(path, O_RDONLY));
 	if (fd != -1)
 	{
