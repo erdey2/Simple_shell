@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * execution - create a new process & replace 
+ * execution - create a new process & replace
  * the parent process image with the child
  * @args: Array of arguments from a user
  * Return: 0 on success
