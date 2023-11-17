@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	size_t cmd_len = 0;
 	ssize_t bytes;
 	pid_t childpid;
-	int status;
+	int status = 0, exec_status = 0;
 
 	(void)argc;
 	while (1)
@@ -34,16 +34,20 @@ int main(int argc, char *argv[])
 			perror(argv[0]);
 			exit(1);
 		}
-		else if (childpid > 0)
+		else if (childpid == 0)
 		{
-			wait(&status);
+			exec_status = execve(*args, args, environ);
+			if (exec_status == -1)
+			{
+				exec_status = 126; /* permission denied or unable to execute */
+				perror("hsh");
+				exit(exec_status);
+			}
+			exit(0);
 		}
 		else
-		{
-			execve(*args, args, environ);
-			dprintf(STDERR_FILENO, "%s: No such file or directory\n", argv[0]);
-			exit(1);
-		}
+			wait(&status);
+		exec_status = WEXITSTATUS(status);
 	}
 	return (0);
 }
