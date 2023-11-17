@@ -2,7 +2,7 @@
 
 /**
  * free_buf - Free the allocated memory
- * 
+ *
  * @line: Input entered by user
  */
 void free_buf(char *line)
