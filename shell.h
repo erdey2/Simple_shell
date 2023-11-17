@@ -19,6 +19,7 @@ int _strlen(const char *s1);
 int test_path(char **args);
 int _putchar(char c);
 char *_strdup(char *s1);
+int builtin_env(void);
 int readline(int fd, char *buf, int nbytes);
 int make_args(char *cmd, char **args);
 int execution(char **args);
@@ -28,6 +29,7 @@ int cmd_not_found(char *args[], int counter);
 int test_builtin(char **args, int cmdstat);
 char *_getenv(char *env);
 char *append_cmd(char *path, char *cmd);
+int internal_cd(char **args);
 void free_buf(char *line);
 void free_double(char **doublea, int heigth);
 

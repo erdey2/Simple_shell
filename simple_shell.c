@@ -2,50 +2,48 @@
 
 /**
  * main - display a simple shell
+ * @argc: - number of arguments
+ * @argv: - array of pointers to arguments
  *
  * Return: - 0
  */
 
-int main(void)
+int main(int argc, char *argv[])
 {
-	char *cmd = NULL, *args[20];
+	char *args[] = {NULL, NULL};
+	char *cmd = NULL;
 	size_t cmd_len = 0;
-	int bytes = 0, counter = 1, t_stat = 0, c_stats = 0, c_stat = 0, i_stat = 0;
+	ssize_t bytes;
+	pid_t childpid;
+	int status;
 
-	if (isatty(STDIN_FILENO) == 1)
-		write(1, "$ ", 2);
-	bytes = getline(&cmd, &cmd_len, stdin);
-	while (bytes != -1)
+	(void)argc;
+	while (1)
 	{
-		if (*cmd != '\n')
-		{
-			make_args(cmd, args);
-			if (args[0] != NULL)
-			{
-				c_stats = check_file(args[0]);
-				if (c_stats != 0)
-				{
-					t_stat = test_path(args);
-					if (t_stat == 0)
-						c_stat = execution(args), free(cmd), free(*args);
-					else
-					{
-					i_stat = test_builtin(args, c_stat);
-					if (i_stat != 0)
-						c_stat = cmd_not_found(args, counter), free(cmd);
-					}
-				}
-				else
-					c_stat = execution(args), free(cmd);
-			}
-			else
-				free(cmd);
-		}
-		else if (*cmd == '\n')
-			free(cmd);
-		cmd = NULL, counter++, write(1, "$ ", 2);
+		write(1, "$ ", 2);
 		bytes = getline(&cmd, &cmd_len, stdin);
+		cmd[bytes - 1] = '\0';
+		if (_strcmp(cmd, "exit") == 0)
+			exit(0);
+		if (_strcmp(cmd, "env") == 0)
+			return (builtin_env());
+		args[0] = cmd;
+		childpid = fork();
+		if (childpid < 0)
+		{
+			perror(argv[0]);
+			exit(1);
+		}
+		else if (childpid > 0)
+		{
+			wait(&status);
+		}
+		else
+		{
+			execve(*args, args, environ);
+			dprintf(STDERR_FILENO, "%s: No such file or directory\n", argv[0]);
+			exit(1);
+		}
 	}
-	free_buf(cmd);
-	return (c_stat);
+	return (0);
 }
