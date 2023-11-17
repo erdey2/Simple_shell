@@ -15,8 +15,7 @@ int main(void)
 
 	if (isatty(STDIN_FILENO) == 1)
 		write(1, "$ ", 2);
-
-	bytes = getline(&cmd, &cmd_len, stdin); 
+	bytes = getline(&cmd, &cmd_len, stdin);
 	while (bytes != -1)
 	{
 		if (*cmd != '\n')
@@ -45,11 +44,8 @@ int main(void)
 		}
 		else if (*cmd == '\n')
 			free(cmd);
-		cmd = NULL, counter++;
-		write(1, "$ ", 2);
+		cmd = NULL, counter++, write(1, "$ ", 2);
 		bytes = getline(&cmd, &cmd_len, stdin);
 	}
-	free_buf(cmd);
-	return (cmdstat);
-	return (0);
+	free_buf(cmd), return (cmdstat), return (0);
 }
