@@ -4,33 +4,33 @@
  * readline - custum readline
  * @fd: the file pointer
  * @buf: the container for the read
- * @nbytes: the size of the number of read 
+ * @nbytes: the size of the number of read
  *
  * Return: the total bytes read
  */
 
 int readline(int fd, char *buf, int nbytes)
 {
-	int numread = 0, returnval;
+	int numread = 0, val;
 
 	while (numread < nbytes - 1)
 	{
-		returnval = read(fd, buf + numread, 1);
-		if ((returnval == -1) && (errno == EINTR))
+		val = read(fd, buf + numread, 1);
+		if ((val == -1) && (errno == EINTR))
 			continue;
-		if ((returnval == 0) && (numread == 0))
+		if ((val == 0) && (numread == 0))
 			return (0);
-		if (returnval == 0)
+		if (val == 0)
 			break;
-		if (returnval == -1)
+		if (val == -1)
 			return (-1);
 		numread++;
-		if (buf[numread-1] == '\n')
+		if (buf[numread - 1] == '\n')
 		{
 			buf[numread] = '\0';
-			return numread;
+			return (numread);
 		}
 	}
 	errno = EINVAL;
- 	return (-1);
+	return (-1);
 }
