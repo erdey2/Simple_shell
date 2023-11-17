@@ -15,7 +15,7 @@ int _strcmp(const char *s1, const char *s2)
 	while (*(s1 + i) == *(s2 + i) && *(s1 + i) != '\0')
 		i++;
 	result = (*(s1 + i) - *(s2 + i));
-	
+
 	return (result);
 }
 
@@ -48,9 +48,9 @@ int _putchar(char c)
 }
 
 /**
- * _str_dup - copy a string
+ * _strdup - copy a string
  * @s1: the string to be copied
- * 
+ *
  * Return: the copied string
  */
 char *_strdup(char *s1)
