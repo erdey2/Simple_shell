@@ -1,8 +1,9 @@
 #include "shell.h"
+
 /**
  * append_cmd -Append user input with PATH
  * @path: path to be appended
- * @cmd: the command 
+ * @cmd: the command
  * Return: the address of the appended PATH
  */
 char *append_cmd(char *path, char *cmd)
