@@ -17,12 +17,12 @@ int make_args(char *cmd, char **args)
 
 	command = strtok(cmd, DELIM);
 	args[i] = command;
-	while (aux != NULL) 
+	while (aux != NULL)
 	{
 		++i;
 		options = strtok(NULL, DELIM);
 		aux = options;
-	       	args[i] = options;
+		args[i] = options;
 	}
 	args[i] = NULL;
 	return (i);
