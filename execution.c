@@ -9,23 +9,26 @@
 int execution(char **args)
 {
 	pid_t childpid = 0;
-	int status = 0;
+	int status = 0, exec_status = 0;
 
 	childpid = fork();
 	if (childpid < 0)
-		write(1, "failed\n", 7);
-	else if (childpid > 0)
+		perror("error in new_process: forking ");
+	else if (childpid == 0)
 	{
-		waitpid(-1, &status, 0);
-	}
-	else
-	{
-		if (execve(args[0], args, environ) == -1)
+		exec_status = execve(args[0], args, environ);
+		if (exec_status == -1)
 		{
+			exec_status = 126; /* permission denied or unable to execute */
 			perror("hsh");
-			exit(-1);
+			exit(exec_status);
 		}
 		exit(0);
 	}
-	return (0);
+	else
+	{
+		wait(&status);
+	}
+	exec_status = WEXITSTATUS(status);
+	return (exec_status);
 }
