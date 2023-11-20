@@ -71,3 +71,25 @@ char *_strdup(char *s1)
 		duplicate[i] = s1[i];
 	return (duplicate);
 }
+
+/**
+ * *_strcpy - copy a given string
+ * @s1: destination string
+ * @s2: source string
+ * Return: char
+ */
+char *_strcpy(char *s1, char *s2)
+{
+	int len = 0, counter = 0;
+
+	while (*(s2 + len) != '\0')
+	{
+		len++;
+	}
+	for (; counter < len; counter++)
+	{
+		s1[counter] = s2[counter];
+		s1[len] = '\0';
+	}
+	return (s1);
+}
