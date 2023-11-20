@@ -1,3 +1,4 @@
+#include "shell.h"
 
 /**
  * _strcat - put a given string at the end of another string
