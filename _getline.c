@@ -9,10 +9,12 @@ char *_getline(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0;
+	ssize_t bytes = 0;
 	
-	if (getline(&line, &bufsize, stdin) == -1)
+	bytes = getline(&line, &bufsize, stdin);
+	if (bytes == -1)
 	{
-		if (feof(stdin))
+		if (*line == '\n')
 		{
 			free(line);
 			exit(0);
