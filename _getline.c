@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _getline - reads entire line 
+ * _getline - reads entire line
  *
  * Return: the address of the read characters
  */

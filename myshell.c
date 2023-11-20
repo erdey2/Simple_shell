@@ -1,21 +1,22 @@
 #include "shell.h"
-
-extern char **environ;
-
+/**
+ * main - the entry point
+ *
+ *Return: - 0 (success always)
+ *
+ *
+ */
 int main(void)
 {
 	pid_t childpid;
 	int status;
-	char cmd[64];
-	char *line;
-	char **args;
+	char cmd[64], *line, **args;
 
 	while (1)
 	{
 		write(1, "$ ", 2);
 		line = _getline();
 		args = _strtok(line);
-
 		_strcpy(cmd, "/bin/");
 		_strcat(cmd, args[0]);
 		childpid = fork();
@@ -28,7 +29,6 @@ int main(void)
 		{
 			if (*args[0] == '/')
 			{
-				printf("Working\n");
 				if (execve(*args, args, environ) == -1)
 				{
 					perror("execve failed\n");
@@ -39,16 +39,13 @@ int main(void)
 			{
 				if (execve(cmd, args, environ) == -1)
 				{
-					perror("execve failed\n");
-					exit(1);
+					perror("execve failed\n"), exit(1);
 				}
 			}
 			exit(0);
 		}
 		else
-		{
 			wait(&status);
-		}
 	}
 	return (0);
 }

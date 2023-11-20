@@ -2,7 +2,7 @@
 
 /**
  * _strtok - split a line into different token
- *@line - the user intered line to be tokenized
+ *@line: - the user intered line to be tokenized
  *
  * Return: the address of the tokens
  */
