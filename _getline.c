@@ -10,7 +10,7 @@ char *_getline(void)
 	char *line = NULL;
 	size_t bufsize = 0;
 	ssize_t bytes = 0;
-	
+
 	bytes = getline(&line, &bufsize, stdin);
 	if (bytes == -1)
 	{
