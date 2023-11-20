@@ -9,20 +9,19 @@ char *_getline(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0;
+	size_t bytes;
 
-	if (getline(&line, &bufsize, stdin) == -1)
+	bytes = getline(&line, &bufsize, stdin);
+	if (bytes < 0)
 	{
-		if (feof(stdin))
-		{
-			free(line);
-			exit(0);
-		}
-		else
-		{
-			free(line);
-			perror("error while reading\n");
-			exit(1);
-		}
+		free(line);
+		exit(0);
+	}
+	else
+	{
+		free(line);
+		perror("error while reading\n");
+		exit(1);
 	}
 	return (line);
 }
