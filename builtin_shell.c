@@ -16,7 +16,7 @@ void buitin_shell(void)
 		line = get_stream();
 		args = _strtok(line);
 		exec_args(args);
-	
+
 		free(line);
 		free(args);
 	}
