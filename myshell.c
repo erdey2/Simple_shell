@@ -11,13 +11,11 @@ void myshell(void)
 	char **args;
 	int status = -1;
 
-	do
-	{
+	do {
 		write(1, "$ ", 2);
 		line = _getline();
 		args = _strtok(line);
 		status = exec_args(args);
-		
 		free(line);
 		free(args);
 

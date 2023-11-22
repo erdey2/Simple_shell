@@ -11,9 +11,9 @@
 int exec_args(char **args)
 {
 	char *builtins[] = {"cd", "exit"};
-	int (*builtins_func[])(char **) = {&cd_builtin, &exit_builtin};
-	long unsigned int i = 0;
+	unsigned long int i = 0;
 
+	int (*builtins_func[])(char **) = {&cd_builtin, &exit_builtin};
 	if (args[0] == NULL)
 		return (-1);
 	for (; i < sizeof(builtins) / sizeof(char *); i++)
