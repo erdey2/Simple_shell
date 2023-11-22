@@ -9,17 +9,15 @@ void myshell(void)
 {
 	char *line;
 	char **args;
-	int status = -1;
 
-	do {
+	while (1)
+	{
 		write(1, "$ ", 2);
 		line = _getline();
 		args = _strtok(line);
-		status = exec_args(args);
+		exec_args(args);
+
 		free(line);
 		free(args);
-
-		if (status >= 0)
-			exit(status);
-	} while (status == -1);
+	}
 }
