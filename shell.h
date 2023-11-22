@@ -22,7 +22,15 @@ char *_strcpy(char *s1, char *s2);
 char *_strcat(char *s1, char *s2);
 char *_getline(void);
 char **_strtok(char *line);
-void free_buf(char *line);
-void free_double(char **doublea, int heigth);
+char *get_stream(void);
+int exec_args(char **args);
+int execution(char **args);
+int main(void);
+void myshell(void);
+void buitin_shell(void);
+int _atoi(char *s);
+
+int exit_builtin(char **args);
+int cd_builtin(char **args);
 
 #endif
