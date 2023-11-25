@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define DELIM " \t\r\n\a\""
 extern char **environ;
@@ -23,6 +24,8 @@ char *_strcat(char *s1, char *s2);
 char *_getline(void);
 char **_strtok(char *line);
 char *get_stream(void);
+unsigned int check_match(char c, const char *s1);
+char *mystrtok(char *s1, const char *s2);
 int exec_args(char **args);
 int execution(char **args);
 int main(void);
