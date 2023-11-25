@@ -3,13 +3,13 @@
 /**
  * check_match - checks of a given character matches any character
  * @c: the character to be checked
- * @s1: the delimiter
+ * @s1: the separator
  * Return: 1 if there is match, 0 otherwise
  */
 unsigned int check_match(char c, const char *s1)
 {
 	unsigned int i = 0;
-	
+
 	while (s1[i] != '\0')
 	{
 		if (c == s1[i])
@@ -20,10 +20,10 @@ unsigned int check_match(char c, const char *s1)
 }
 
 /**
- * _strtok - split a given string into tokens
+ * mystrtok - split a given string into tokens
  * @s1: the string to be splited
  * @s2: the string to be used as a spliter
- * 
+ *
  * Return: pointer to the next token or NULL
  */
 char *mystrtok(char *s1, const char *s2)
